@@ -28,7 +28,6 @@ class Board extends React.Component {
   }
 
 
-
   markPlayer = (a, number) => {
     let board = this.state.winningBoard.slice()
     for (let i=0; i < board.length; i++) {
@@ -42,7 +41,7 @@ class Board extends React.Component {
   }
 
   checkPattern = (a,b,c,d) => {
-    if ((a == "Z"||a=="Y") && a==b && a==c && a==d) {
+    if ((a === "Z"||a==="Y") && a===b && a===c && a===d) {
       this.setState({someoneWon: true})
     }
   }
@@ -76,10 +75,9 @@ class Board extends React.Component {
   }
 
   changeColor = (event) => {
-
     if (this.state.playerOne) {
       this.markPlayer("Z", event.target.id)
-      event.target.className= 'ui blue massive circular label'
+      event.target.className= 'ui yellow massive circular label'
       this.checkWinningCombos()
     } else {
       this.markPlayer("Y", event.target.id)
@@ -93,10 +91,10 @@ class Board extends React.Component {
   mapBoardToGrid = () => {
     return this.state.board.map(array => {
       return (
-        <Grid.Row textAlign='center' columns={7}>
+        <Grid.Row inverted color='blue' textAlign='center' key={array[0]} columns={7}>
           {array.map(number => {
-            return (<Grid.Column textAlign='center'>
-            {<Label size='massive' onClick={this.changeColor} key={number} color='grey' circular id={number}/>}
+            return (<Grid.Column inverted key={number} textAlign='center'>
+            {<Label size='massive' onClick={this.changeColor} key={number} color='white' circular id={number}/>}
             </Grid.Column>)
           })  }
         </Grid.Row>
@@ -127,7 +125,7 @@ class Board extends React.Component {
       <Container/>
       <Container text>
       {this.whoseTurnOrDidSomeoneWin()}
-      <Grid celled>
+      <Grid inverted>
       {this.mapBoardToGrid()}
       </Grid>
       </Container>
